@@ -58,10 +58,14 @@ export default {
       this.users = this.users.filter(user => user.id !== userId)
     },
     async fetchUsers() {
-      const response = await fetch('https://manejodeusuarios-egfcaga6b4dgdue4.canadacentral-01.azurewebsites.net/api/usuario');
-      const data = await response.json();
-      this.users = data;
-    }
+      try {
+        const response = await fetch('https://manejodeusuarios-egfcaga6b4dgdue4.canadacentral-01.azurewebsites.net/api/usuario');
+        const data = await response.json();
+        this.users = data;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        // Handle the error gracefully, e.g., display an error message to the user
+      }
   },mounted() {
     this.fetchUsers();
   }
